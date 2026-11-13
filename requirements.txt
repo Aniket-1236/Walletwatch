@@ -1,0 +1,5 @@
+# WalletWatch needs NO third-party packages: it uses only the Python standard library.
+# Python 3.12 is what it was built and tested with (newer versions should work too).
+#
+# This file is intentionally empty of packages so these commands all succeed and install nothing extra:
+#     pip install -r requirements.txt
