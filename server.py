@@ -40,7 +40,7 @@ SECURITY_HEADERS = (
 LOCKED_HTML = ("<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
                "<title>WalletWatch locked</title><body style='font:16px system-ui;max-width:32rem;margin:12vh auto;padding:0 1rem'>"
                "<h1>WalletWatch is locked</h1><p>No password has been set up yet, so nobody can open this site.</p>"
-               "<p>On the server run: <code>python setpassword.py</code></p></body>")
+               "<p>Set <code>APP_PASSWORD</code> in the <code>.env</code> file (or in your host's environment variables) and restart.</p></body>")
 
 
 class Hub:
@@ -770,10 +770,9 @@ def main():
     print(f"WalletWatch {mode} on http://{host}:{port}  (checking every {config.poll_seconds()}s, live websocket for Solana: {"on" if config.use_ws() else "off"})", flush=True)
     mode = app.auth.mode()
     if mode == "login":
-        print("Login is ON" + (" with an authenticator code." if app.auth.totp_enabled() else ".")
-              + ("" if os.getenv("APP_PASSWORD_HASH") else "  Tip: run  python setpassword.py  to store a hashed password."), flush=True)
+        print("Login is ON" + (" with an authenticator code." if app.auth.totp_enabled() else "."), flush=True)
     elif mode == "locked":
-        print("NO PASSWORD SET: the site stays locked until you run  python setpassword.py", flush=True)
+        print("NO PASSWORD SET: the site stays locked until you set APP_PASSWORD in .env", flush=True)
     else:
         print("Warning: running WITHOUT a password (demo/local only).", flush=True)
     try:
